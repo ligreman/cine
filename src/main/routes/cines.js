@@ -19,7 +19,7 @@ module.exports = function (app) {
 
         models.Provincia
             .findOne({"ciudades.cines._id": idCine})
-            .populate('ciudades.cines.sesiones._idPelicula')
+            .populate('ciudades.cines.sesiones.pelicula')
             .exec(function (error, provincia) {
                 if (error || !provincia) {
                     console.error(error);
@@ -53,18 +53,21 @@ module.exports = function (app) {
 
                 // Compruebo si el cine está actualizado
                 if (utils.isUpdated(cine.actualizado)) {
-                    // Ta actualizado, censuro y devuelvo
-                    var censored = cine;
-                    censored.urlCartelera = null;
-                    delete censored.urlCartelera;
-                    censored.actualizado = null;
-                    delete censored.actualizado;
-
+                    console.log("Ta updated");
                     res.json({
-                        "cine": censored,
+                        "cine": {
+                            nombre: cine.nombre,
+                            urlCartelera: null,
+                            direccion: cine.direccion,
+                            codigoPostal: cine.codigoPostal,
+                            telefono: cine.telefono,
+                            sesiones: cine.sesiones,
+                            actualizado: null
+                        },
                         "error": ""
                     });
                 } else {
+                    console.log("Tengo que actualizar");
                     // Lo actualizo antes de devolverlo. He de parsear su web
                     request(cine.urlCartelera, function (err, resp, body) {
                         if (err || resp.statusCode !== 200) {
@@ -87,9 +90,9 @@ module.exports = function (app) {
 
                             $(this).find('p.subtitle a').each(function () {
                                 if (tagData.es3d) {
-                                    horarios.push($(this).text());
-                                } else {
                                     horarios3d.push($(this).text());
+                                } else {
+                                    horarios.push($(this).text());
                                 }
                             });
 
@@ -100,11 +103,14 @@ module.exports = function (app) {
                         // Compruebo si se resuelven todos los promise
                         Q.allSettled(promises)
                             .then(function (results) {
-                                var resultado = true, razon;
+                                var resultado = true, razon = '', sesionesMongo = [], sesionesJSON = [];
                                 results.forEach(function (result) {
                                     if (result.state !== "fulfilled") {
-                                        resultado = result.value;
+                                        resultado = false;
                                         razon = result.reason;
+                                    } else {
+                                        sesionesMongo.push(result.value.mongo);
+                                        sesionesJSON.push(result.value.json);
                                     }
                                 });
 
@@ -113,21 +119,48 @@ module.exports = function (app) {
                                     process.exit();
                                 }
 
-                                console.log('Partidas que estaban RESUELTAS las CIERRO y creo las nuevas si eran recursivas');
-                                eventEmitter.emit('gameFridayContinue');
+                                res.json({
+                                    "cine": {
+                                        nombre: cine.nombre,
+                                        urlCartelera: null,
+                                        direccion: cine.direccion,
+                                        codigoPostal: cine.codigoPostal,
+                                        telefono: cine.telefono,
+                                        sesiones: sesionesJSON,
+                                        actualizado: null
+                                    },
+                                    "error": ""
+                                });
+
+                                //guardar en mongo las sesiones y actualizado
+                                var ahora = new Date();
+                                ahora = ahora.getTime();
+                                cine.actualizado = ahora;
+                                cine.sesiones = sesionesMongo;
+
+                                provincia.save(function (error) {
+                                    if (error) {
+                                        console.error("Error salvando en Mongo: " + error);
+                                    }
+                                });
+
+                                /*
+                                 // Esto también creo que funcionaría
+                                 models.Provincia
+                                 .findOneAndUpdate({"ciudades.cines._id": idCine},
+                                 {
+                                 "$set": {
+                                 //"ciudades.$.cines.$.sesiones": sesiones
+                                 "ciudades.$.cines.$.actualizado": ahora
+                                 }
+                                 },
+                                 function (error, doc) {
+                                 if (error) {
+                                 console.error("Error salvando en Mongo: " + error);
+                                 }
+                                 }
+                                 );*/
                             });
-                    });
-
-
-                    var censored = cine;
-                    censored.urlCartelera = null;
-                    delete censored.urlCartelera;
-                    censored.actualizado = null;
-                    delete censored.actualizado;
-
-                    res.json({
-                        "cine": cine,
-                        "error": ""
                     });
                 }
             });

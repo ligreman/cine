@@ -19,18 +19,27 @@ var checkIfMovieExists = function (tag, titulo, horarios, horarios3d) {
             if (pelicula) {
                 // La tengo en mongo así que puedo generar el objeto sesión
                 defer.resolve({
-                    titulo: pelicula.titulo,
-                    estreno: pelicula.estreno,
-                    anno: pelicula.anno,
-                    duracion: pelicula.duracion,
-                    pais: pelicula.pais,
-                    genero: pelicula.genero,
-                    sinopsis: pelicula.sinopsis,
-                    director: pelicula.director,
-                    reparto: pelicula.reparto,
-                    imagen: pelicula.imagen,
-                    horarios: horarios,
-                    horarios3d: horarios3d
+                    mongo: {
+                        pelicula: pelicula._id,
+                        horarios: horarios,
+                        horarios3d: horarios3d
+                    },
+                    json: {
+                        pelicula: {
+                            titulo: pelicula.titulo,
+                            estreno: pelicula.estreno,
+                            anno: pelicula.anno,
+                            duracion: pelicula.duracion,
+                            pais: pelicula.pais,
+                            genero: pelicula.genero,
+                            sinopsis: pelicula.sinopsis,
+                            director: pelicula.director,
+                            reparto: pelicula.reparto,
+                            imagen: pelicula.imagen
+                        },
+                        horarios: horarios,
+                        horarios3d: horarios3d
+                    }
                 });
             } else {
                 /*// No la tengo así que tendré que buscar sus datos en la web de nuevo
@@ -45,18 +54,27 @@ var checkIfMovieExists = function (tag, titulo, horarios, horarios3d) {
 
                 //No la tengo así que devuelvo lo que puedo
                 defer.resolve({
-                    titulo: titulo,
-                    estreno: '',
-                    anno: 0,
-                    duracion: 0,
-                    pais: [],
-                    genero: [],
-                    sinopsis: '',
-                    director: [],
-                    reparto: [],
-                    imagen: '',
-                    horarios: horarios,
-                    horarios3d: horarios3d
+                    mongo: {
+                        pelicula: pelicula._id,
+                        horarios: horarios,
+                        horarios3d: horarios3d
+                    },
+                    json: {
+                        pelicula: {
+                            titulo: titulo,
+                            estreno: '',
+                            anno: 0,
+                            duracion: 0,
+                            pais: [],
+                            genero: [],
+                            sinopsis: '',
+                            director: [],
+                            reparto: [],
+                            imagen: '',
+                        },
+                        horarios: horarios,
+                        horarios3d: horarios3d
+                    }
                 });
             }
         });

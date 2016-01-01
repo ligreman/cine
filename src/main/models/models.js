@@ -21,7 +21,7 @@ var peliculaSchema = new Schema({
 
 //Colección "cines"
 var sesionSchema = new Schema({
-    _idPelicula: {type: mongoose.Schema.Types.ObjectId, ref: 'Pelicula'},
+    pelicula: {type: mongoose.Schema.Types.ObjectId, ref: 'Pelicula'},
     horarios: [String],
     horarios3D: [String]
 });

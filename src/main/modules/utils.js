@@ -1,5 +1,6 @@
 'use strict';
 
+var config = require('../modules/config');
 
 /**
  * Devuelve un error en JSON
@@ -29,10 +30,12 @@ var error = function (res, code, errCode) {
 /**
  * Comprueba si el time está actualizado
  * @param time Tiempoque quiero comprobar
- * @param caducidad Caducidad en horas
  */
-var isUpdated = function (time, caducidad) {
-    var now = new Date.getTime();
+var isUpdated = function (time) {
+    var now = new Date();
+    now = now.getTime();
+
+    var caducidad = config.CONSTANTS.CADUCIDAD_SESIONES;
 
     caducidad = caducidad * 60 * 60 * 1000;
 
@@ -49,7 +52,7 @@ var getTagPeli = function (title) {
 
     title = title.toLowerCase();
 
-    if (title.indexOf('3D') !== -1) {
+    if (title.indexOf('3d') !== -1) {
         es3d = true;
     }
 
