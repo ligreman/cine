@@ -1,46 +1,47 @@
 {
-    "author": "Ligreman",
-    "name": "webapp-grunt-nodejs",
-    "version": "1.0.0",
-    "description": "NodeJS scaffolding template with grunt integration for unit and functiona test, build and deploy, development server.",
-    "repository": {
+  "author": "Ligresoftware",
+  "name": "cine",
+  "version": "1.0.0",
+  "repository": {
     "type": "git",
     "url": "https://github.com/openshift/origin-server"
   },
-
   "engines": {
     "node": ">= 0.6.0",
     "npm": ">= 1.0.0"
   },
-    "keywords": ["template", "nodejs", "scaffolding"],
-    "license": "SEE LICENSE IN LICENSE",
-    "main": "src/main/app.js",
-    "scripts": {
-        "start": "node src/main/app.js"
-    },
-    "private": true,
-    "dependencies": {
-        "express": "^4.12.3"
-    },
-    "devDependencies": {
-        "chai": "^2.3.0",
-        "grunt": "^0.4.5",
-        "grunt-cli": "^0.1.13",
-        "grunt-concurrent": "^1.0.0",
-        "grunt-contrib-clean": "^0.6.0",
-        "grunt-contrib-copy": "^0.8.0",
-        "grunt-contrib-jshint": "^0.11.2",
-        "grunt-contrib-watch": "^0.6.1",
-        "grunt-jscs": "^1.8.0",
-        "grunt-mocha-istanbul": "^2.4.0",
-        "grunt-mocha-test": "^0.12.7",
-        "grunt-nodemon": "^0.4.0",
-        "istanbul": "^0.3.14",
-        "jscs-stylish": "^0.3.1",
-        "jshint-smart": "^0.1.2",
-        "load-grunt-tasks": "^3.1.0",
-        "mocha": "^2.2.4",
-        "mockery": "^1.4.0",
-        "sinon": "^1.14.1"
-    }
+  "license": "SEE LICENSE IN LICENSE",
+  "main": "src/main/app.js",
+  "scripts": {
+    "start": "node src/main/app.js"
+  },
+  "private": true,
+  "dependencies": {
+    "cheerio": "^0.19.0",
+    "express": "^4.13.3",
+    "mongoose": "^4.3.4",
+    "q": "^1.4.1",
+    "request": "^2.67.0"
+  },
+  "devDependencies": {
+    "chai": "^2.3.0",
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-concurrent": "^1.0.0",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-jscs": "^1.8.0",
+    "grunt-mocha-istanbul": "^2.4.0",
+    "grunt-mocha-test": "^0.12.7",
+    "grunt-nodemon": "^0.4.0",
+    "istanbul": "^0.3.14",
+    "jscs-stylish": "^0.3.1",
+    "jshint-smart": "^0.1.2",
+    "load-grunt-tasks": "^3.1.0",
+    "mocha": "^2.2.4",
+    "mockery": "^1.4.0",
+    "sinon": "^1.14.1"
+  }
 }
