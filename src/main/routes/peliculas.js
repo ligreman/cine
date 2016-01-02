@@ -37,51 +37,20 @@ module.exports = function (app) {
     peliculaRouter.get('/peliculas/:id', function (req, res, next) {
         var idCine = req.params.id;
 
-        models.Provincia
-            .findOne({"ciudades.cines._id": idCine})
-            .select('-ciudades.cines.urlCartelera -ciudades.cines.actualizado')
+        models.Pelicula
+            .findById(idCine)
+            //.select('-ciudades.cines.urlCartelera -ciudades.cines.actualizado')
             //.select('nombre sortfield ciudades._id ciudades.nombre')
-            .populate('ciudades.cines.sesiones._idPelicula')
-            .exec(function (error, provincia) {
+            //.populate('ciudades.cines.sesiones._idPelicula')
+            .exec(function (error, pelicula) {
                 if (error) {
                     console.error(error);
-                    utils.error(res, 400, 'errCineCiudad');
-                    return;
-                }
-
-                //Saco el cine que busco. Primero recorro ciudades
-                var cine = null;
-                //provincia.ciudades.forEach(function (city) {
-                // Busco el cine
-                /*city.cines.forEach(function (cinema) {
-                 if (cinema._id.toString() === idCine) {
-                 cine = cinema;
-                 }
-                 });*/
-
-                provincia.ciudades.some(function (city) {
-                    city.cines.some(function (cinema) {
-                        if (cinema._id.toString() === idCine) {
-                            cine = cinema;
-                            // Devuelvo true para romper el bucle
-                            return true;
-                        }
-                        // Devuelvo false para continuar el bucle
-                        return false;
-                    });
-
-                    return (cine !== null);
-                });
-
-
-                if (!cine) {
-                    console.error(error);
-                    utils.error(res, 400, 'errCine');
+                    utils.error(res, 400, 'errPeliculasId');
                     return;
                 }
 
                 res.json({
-                    "cine": cine,
+                    "pelicula": pelicula,
                     "error": ""
                 });
             });

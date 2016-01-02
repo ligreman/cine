@@ -29,6 +29,7 @@ var sesionSchema = new Schema({
 var cineSchema = new Schema({
     nombre: String,
     urlCartelera: String,
+    tipo: String,
     direccion: String,
     codigoPostal: String,
     telefono: String,

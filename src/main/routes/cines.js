@@ -4,8 +4,9 @@ module.exports = function (app) {
     var express = require('express'),
         cineRouter = express.Router(),
         request = require('request'),
-        cheerio = require('cheerio'),
+    //cheerio = require('cheerio'),
         utils = require('../modules/utils'),
+        sessionExtractor = require('../modules/sessionExtractor'),
         Q = require('q'),
         prometeo = require('../modules/promises'),
         models = require('../models/models');
@@ -77,27 +78,38 @@ module.exports = function (app) {
                         }
 
                         //Saco el cuerpo
-                        var $ = cheerio.load(body);
+                        //var $ = cheerio.load(body);
 
                         //Saco las sesiones
-                        var sesiones = [], promises = [];
-                        $('div.info-line').each(function () {
-                            var titulo = $(this).find('h5').text();
-                            var horarios = [], horarios3d = [];
+                        var sesionesCine = sessionExtractor.extract(body, cine.tipo),
+                            promises = [];
 
-                            // Genero el tag de la peli
-                            var tagData = utils.getTagPeli(titulo);
+                        /******************************************/
+                        /*$('div.info-line').each(function () {
+                         var titulo = $(this).find('h5').text();
+                         var horarios = [], horarios3d = [];
 
-                            $(this).find('p.subtitle a').each(function () {
-                                if (tagData.es3d) {
-                                    horarios3d.push($(this).text());
-                                } else {
-                                    horarios.push($(this).text());
-                                }
-                            });
+                         // Genero el tag de la peli
+                         var tagData = utils.getTagPeli(titulo);
 
+                         $(this).find('p.subtitle a').each(function () {
+                         if (tagData.es3d) {
+                         horarios3d.push($(this).text());
+                         } else {
+                         horarios.push($(this).text());
+                         }
+                         });
+
+                         // Añado el promise a la lista
+                         promises.push(prometeo.checkIfMovieExists(tagData.tag, titulo, horarios, horarios3d));
+                         });*/
+                        /******************************************/
+
+                        sesionesCine.forEach(function (ss) {
                             // Añado el promise a la lista
-                            promises.push(prometeo.checkIfMovieExists(tagData.tag, titulo, horarios, horarios3d));
+                            promises.push(prometeo.checkIfMovieExists(
+                                ss.tag, ss.titulo, ss.horarios, ss.horarios3d
+                            ));
                         });
 
                         // Compruebo si se resuelven todos los promise

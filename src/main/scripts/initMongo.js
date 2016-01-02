@@ -30,6 +30,7 @@ var provincias = [
                     {
                         nombre: 'Van Gogh',
                         urlCartelera: 'http://cinesvangogh.com/cines/4/cartelera',
+                        tipo: 'vangogh',
                         direccion: 'San claudio, 5',
                         codigoPostal: '24004',
                         telefono: '987214022',
@@ -39,6 +40,7 @@ var provincias = [
                     {
                         nombre: 'Odeón Multicines',
                         urlCartelera: 'http://odeonmulticines.com/leon/cartelera/',
+                        tipo: 'odeon',
                         direccion: 'Centro Comercial Espacio León. Avda. del País Leonés, s/n',
                         codigoPostal: '24010',
                         telefono: '987228182',
