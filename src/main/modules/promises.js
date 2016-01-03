@@ -22,7 +22,7 @@ var checkIfMovieExists = function (tag, titulo, horarios, horarios3d) {
                     mongo: {
                         pelicula: pelicula._id,
                         horarios: horarios,
-                        horarios3d: horarios3d
+                        horarios3D: horarios3d
                     },
                     json: {
                         pelicula: {
@@ -38,7 +38,7 @@ var checkIfMovieExists = function (tag, titulo, horarios, horarios3d) {
                             imagen: pelicula.imagen
                         },
                         horarios: horarios,
-                        horarios3d: horarios3d
+                        horarios3D: horarios3d
                     }
                 });
             } else {
@@ -57,7 +57,7 @@ var checkIfMovieExists = function (tag, titulo, horarios, horarios3d) {
                     mongo: {
                         pelicula: pelicula._id,
                         horarios: horarios,
-                        horarios3d: horarios3d
+                        horarios3D: horarios3d
                     },
                     json: {
                         pelicula: {
@@ -70,10 +70,10 @@ var checkIfMovieExists = function (tag, titulo, horarios, horarios3d) {
                             sinopsis: '',
                             director: [],
                             reparto: [],
-                            imagen: '',
+                            imagen: ''
                         },
                         horarios: horarios,
-                        horarios3d: horarios3d
+                        horarios3D: horarios3d
                     }
                 });
             }

@@ -6,6 +6,7 @@ module.exports = function (app) {
         request = require('request'),
     //cheerio = require('cheerio'),
         utils = require('../modules/utils'),
+        config = require('../modules/config'),
         sessionExtractor = require('../modules/sessionExtractor'),
         Q = require('q'),
         prometeo = require('../modules/promises'),
@@ -16,7 +17,8 @@ module.exports = function (app) {
      * Obtiene un cine
      */
     cineRouter.get('/cines/:id', function (req, res, next) {
-        var idCine = req.params.id;
+        var idCine = req.params.id,
+            returnPhotos = utils.checkKey(req.get(config.CONSTANTS.KEY_HEADER));
 
         models.Provincia
             .findOne({"ciudades.cines._id": idCine})
@@ -124,6 +126,11 @@ module.exports = function (app) {
                                         razon = result.reason;
                                     } else {
                                         sesionesMongo.push(result.value.mongo);
+
+                                        //Miro a ver qué imagen tengo que mandar
+                                        if (!returnPhotos) {
+                                            result.value.json.pelicula.imagen = config.CONSTANTS.NO_MOVIE_DEFAULT_IMAGE;
+                                        }
                                         sesionesJSON.push(result.value.json);
                                     }
                                 });

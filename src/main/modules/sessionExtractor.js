@@ -18,12 +18,20 @@ var extractSessionsFromCine = function (body, queCine) {
                 var tagData = utils.getTagPeli(titulo);
 
                 $(this).find('p.subtitle a').each(function () {
+                    console.log("Miro el tag de " + tagData.tag);
                     if (tagData.es3d) {
+                        console.log("    es 3D");
                         horarios3d.push($(this).text());
                     } else {
+                        console.log("    es normal");
                         horarios.push($(this).text());
                     }
                 });
+
+                console.log("Horarios normales");
+                console.log(horarios);
+                console.log("Horarios 3D");
+                console.log(horarios3d);
 
                 sesiones.push({
                     tag: tagData.tag,

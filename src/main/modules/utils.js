@@ -101,9 +101,18 @@ function replacer(txt) {
     }
 }
 
+var checkKey = function (key) {
+    if (key !== undefined && key === config.CONSTANTS.KEY_PASSWORD) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 //Exporto las funciones de la librería utils para que puedan accederse desde fuera
 module.exports = {
     error: error,
     isUpdated: isUpdated,
-    getTagPeli: getTagPeli
+    getTagPeli: getTagPeli,
+    checkKey: checkKey
 };

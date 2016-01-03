@@ -34,6 +34,8 @@ var provincias = [
                         direccion: 'San claudio, 5',
                         codigoPostal: '24004',
                         telefono: '987214022',
+                        coordLatitud: 42.5917906,
+                        coordLongitud: -5.5735533,
                         sesiones: [],
                         actualizado: 0
                     },
@@ -44,6 +46,8 @@ var provincias = [
                         direccion: 'Centro Comercial Espacio León. Avda. del País Leonés, s/n',
                         codigoPostal: '24010',
                         telefono: '987228182',
+                        coordLatitud: 42.61307,
+                        coordLongitud: -5.596397,
                         sesiones: [],
                         actualizado: 0
                     }
