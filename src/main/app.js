@@ -3,10 +3,10 @@
 //Cargo los módulos que voy a usar y los inicializo
 var express = require('express'),
     app = express(),
-    mongoose = require('mongoose');
-
-
-var serverPort = process.env.OPENSHIFT_NODEJS_PORT || 8080,
+    http = require('http'),
+    server = http.createServer(app),
+    mongoose = require('mongoose'),
+    serverPort = process.env.OPENSHIFT_NODEJS_PORT || 8080,
     serverHost = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1',
     mongoHost = process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME || 'mongodb://localhost/cine2';
 
@@ -62,7 +62,7 @@ function exitHandler(options, err) {
 }
 
 //Arranco el servidor
-var server = app.listen(3000, function () {
+server.listen(serverPort, serverHost, function () {
     var host = server.address().address;
     var port = server.address().port;
     console.log('Servidor escuchando en http://%s:%s', host, port);
