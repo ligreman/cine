@@ -29,12 +29,14 @@ module.exports = function (app) {
                 }
 
                 //Saco el cine que busco. Primero recorro ciudades
-                var cine = null;
+                var cine = null, ciudad = null;
                 // Busco el cine
                 provincia.ciudades.some(function (city) {
                     city.cines.some(function (cinema) {
                         if (cinema._id.toString() === idCine) {
                             cine = cinema;
+                            ciudad = city;
+
                             // Devuelvo true para romper el bucle
                             return true;
                         }
@@ -134,6 +136,8 @@ module.exports = function (app) {
                                 res.json({
                                     "cine": {
                                         nombre: cine.nombre,
+                                        _idCiudad: ciudad._id,
+                                        nombreCiudad: ciudad.nombre,
                                         urlCartelera: null,
                                         direccion: cine.direccion,
                                         codigoPostal: cine.codigoPostal,

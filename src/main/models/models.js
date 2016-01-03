@@ -28,6 +28,8 @@ var sesionSchema = new Schema({
 
 var cineSchema = new Schema({
     nombre: String,
+    _idCiudad: {type: String, default: null},
+    nombreCiudad: {type: String, default: null},
     urlCartelera: String,
     tipo: String,
     direccion: String,

@@ -63,8 +63,16 @@ module.exports = function (app) {
                     return;
                 }
 
+                //Añadir a la respuesta el idCiudad y nombreciudad
+                var cines = ciudad.cines;
+
+                cines.forEach(function (cine) {
+                    cine._idCiudad = ciudad._id;
+                    cine.nombreCiudad = ciudad.nombre;
+                });
+
                 res.json({
-                    "cines": ciudad.cines,
+                    "cines": cines,
                     "error": ""
                 });
             });
