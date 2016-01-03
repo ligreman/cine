@@ -27,6 +27,7 @@ var sesionSchema = new Schema({
 });
 
 var cineSchema = new Schema({
+    _id: String,
     nombre: String,
     _idCiudad: {type: String, default: null},
     nombreCiudad: {type: String, default: null},
@@ -41,11 +42,13 @@ var cineSchema = new Schema({
 
 //Colección "provincias"
 var ciudadSchema = new Schema({
+    _id: String,
     nombre: String,
     cines: [cineSchema]
 });
 
 var provinciaSchema = new Schema({
+    _id: String,
     nombre: String,
     ciudades: [ciudadSchema],
     sortfield: String

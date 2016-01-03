@@ -21,13 +21,16 @@ mongoose.connection.collections['provincias'].drop(function (err) {
 
 var provincias = [
     {
+        _id: '710f6748d9eebed36297191a508db467',
         nombre: 'León',
         sortfield: 'leon',
         ciudades: [
             {
+                _id: '8780c8b47245c858516d3a07ed5291db',
                 nombre: 'León',
                 cines: [
                     {
+                        _id: '3de40e424271a2eba4c0c504920dd662',
                         nombre: 'Van Gogh',
                         urlCartelera: 'http://cinesvangogh.com/cines/4/cartelera',
                         tipo: 'vangogh',
@@ -40,6 +43,7 @@ var provincias = [
                         actualizado: 0
                     },
                     {
+                        _id: '00a3c17b6a10bdc756360307ff188be2',
                         nombre: 'Odeón Multicines',
                         urlCartelera: 'http://odeonmulticines.com/leon/cartelera/',
                         tipo: 'odeon',
