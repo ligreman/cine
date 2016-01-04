@@ -32,6 +32,7 @@ var cineSchema = new Schema({
     _idCiudad: {type: String, default: null},
     nombreCiudad: {type: String, default: null},
     urlCartelera: String,
+    urlCompraOnline: String,
     tipo: String,
     direccion: String,
     codigoPostal: String,
