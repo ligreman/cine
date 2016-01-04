@@ -16,7 +16,7 @@ var mongoose = require('mongoose'),
 mongoose.connect(mongoHost, {});
 
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
-mongoose.connection.once('open', function (callback) {
+mongoose.connection.once('open', function () {
     console.log("Mongo conectado");
 });
 mongoose.set('debug', true);
@@ -49,7 +49,7 @@ request(urlVanGogh, function (err, resp, body) {
     $('div.grid-cartelera div.poster-box').each(function () {
 
         // Saco el id de la peli
-        var id = $(this).attr('ng-click');
+        var id = $(this).attr('ng-click').toString();
         var patron = /(lookUpFilm\()([0-9]+)(,.\))/i;
         id = patron.exec(id);
         id = id[2];
@@ -151,7 +151,7 @@ eventEmitter.on('#getpelis', function (data) {
                 //eventEmitter.emit('#guardamongo', {peliculas: guardar})
 
                 //Si se completó... lo guardo en mongooool
-                models.Pelicula.create(guardar, function (err, peliculas) {
+                models.Pelicula.create(guardar, function (err) {
                     if (err) {
                         console.error("Error al guardar en mongo las pelis:" + err);
                     }
@@ -199,6 +199,7 @@ function getMovie(peli) {
         //Saco el cuerpo
         var $ = cheerio.load(body);
 
+        //noinspection JSValidateTypes
         var data = $('div#film-data').children('h5').text();
         data = data.split('-');
         var pais = [limpia(data[0])];

@@ -13,35 +13,14 @@ var express = require('express'),
 //Configuración de la conexión a Mongo
 mongoose.connect(mongoHost, {});
 
-//Creo los modelos de Mongo. Sólo he de hacerlo una vez
-//require('./models/createModels')(mongoose);
-
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
-mongoose.connection.once('open', function (callback) {
+mongoose.connection.once('open', function () {
     console.log("Mongo conectado");
 });
 mongoose.set('debug', true);
 
 //Cargo las rutas
 require('./routes/routes')(app);
-
-/*
- //Método /api/hola del servicio REST que devuelve un JSON
- app.get('/api/hola', function (req, res) {
- var respuesta = {
- "info": utils.getRespuesta('Pepe'),
- "error": null
- };
-
- res.set('Content-Type', 'application/json');
- res.json(respuesta);
- });
-
- //Cualquier otra ruta a la que se acceda, devuelve error
- app.get('/*', function (req, res) {
- res.status(404).send('Aquí no hay nada');
- });
- */
 
 //Controlamos el cierre para desconectar mongo
 process.stdin.resume();//so the program will not close instantly

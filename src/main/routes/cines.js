@@ -16,7 +16,7 @@ module.exports = function (app) {
      * GET /api/cines/idCine
      * Obtiene un cine
      */
-    cineRouter.get('/cines/:id', function (req, res, next) {
+    cineRouter.get('/cines/:id', function (req, res) {
         var idCine = req.params.id,
             returnPhotos = utils.checkKey(req.get(config.CONSTANTS.KEY_HEADER));
 

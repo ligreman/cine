@@ -9,14 +9,15 @@ var mongoose = require('mongoose'),
 mongoose.connect(mongoHost, {});
 
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
-mongoose.connection.once('open', function (callback) {
+mongoose.connection.once('open', function () {
     console.log("Mongo conectado");
 });
 mongoose.set('debug', true);
 
 // Limpio
-mongoose.connection.collections['provincias'].drop(function (err) {
-    eventEmitter.emit('crear', {});
+//noinspection JSUnresolvedFunction
+mongoose.connection.collections['provincias'].drop(function () {
+    eventEmitter.emit('crear');
 });
 
 var provincias = [
@@ -64,10 +65,14 @@ var provincias = [
 ];
 
 // Creo la estructura base de Mongo
-eventEmitter.on('crear', function (data) {
+eventEmitter.on('crear', function () {
     //Meto los nuevos valores
-    models.Provincia.create(provincias, function (err, provincias) {
-        console.log('CREADO');
+    models.Provincia.create(provincias, function (err) {
+        if (err) {
+            console.log('Error creando los datos');
+        } else {
+            console.log('Datos cargados en Mongo');
+        }
 
         mongoose.disconnect();
         process.exit();

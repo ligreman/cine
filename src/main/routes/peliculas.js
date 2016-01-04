@@ -11,7 +11,7 @@ module.exports = function (app) {
      * GET /api/peliculas
      * Obtiene la lista peliculas
      */
-    peliculaRouter.get('/peliculas', function (req, res, next) {
+    peliculaRouter.get('/peliculas', function (req, res) {
         //var returnPhotos = utils.checkKey(req.get(config.CONSTANTS.KEY_HEADER));
 
         models.Pelicula
@@ -44,7 +44,7 @@ module.exports = function (app) {
      * GET /api/peliculas/idPelicula
      * Obtiene una peli
      */
-    peliculaRouter.get('/peliculas/:id', function (req, res, next) {
+    peliculaRouter.get('/peliculas/:id', function (req, res) {
         var idCine = req.params.id,
             returnPhotos = utils.checkKey(req.get(config.CONSTANTS.KEY_HEADER));
 

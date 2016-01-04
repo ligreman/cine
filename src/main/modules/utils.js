@@ -39,12 +39,7 @@ var isUpdated = function (time) {
 
     caducidad = caducidad * 60 * 60 * 1000;
 
-    if (time + caducidad > now) {
-        // Ta actualizao
-        return true;
-    } else {
-        return false;
-    }
+    return time + caducidad > now;
 };
 
 var getTagPeli = function (title) {
@@ -102,12 +97,8 @@ function replacer(txt) {
 }
 
 var checkKey = function (key) {
-    if (key !== undefined && key === config.CONSTANTS.KEY_PASSWORD) {
-        return true;
-    } else {
-        return false;
-    }
-}
+    return key !== undefined && key === config.CONSTANTS.KEY_PASSWORD;
+};
 
 //Exporto las funciones de la librería utils para que puedan accederse desde fuera
 module.exports = {

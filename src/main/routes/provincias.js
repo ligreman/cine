@@ -10,7 +10,7 @@ module.exports = function (app) {
      * GET /api/provincias
      * Obtiene la lista de provincias y ciudades
      */
-    provinciaRouter.get('/provincias', function (req, res, next) {
+    provinciaRouter.get('/provincias', function (req, res) {
         models.Provincia
             .find({})
             //.select('-ciudades.cines.urlCartelera -ciudades.cines.actualizado')
@@ -34,7 +34,7 @@ module.exports = function (app) {
      * GET /api/provincias/ciudad/idCiudad
      * Obtiene los cines de una ciudad
      */
-    provinciaRouter.get('/provincias/ciudad/:id', function (req, res, next) {
+    provinciaRouter.get('/provincias/ciudad/:id', function (req, res) {
         var idCiudad = req.params.id;
 
         // Saco la ciudad esta que busco
