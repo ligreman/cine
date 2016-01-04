@@ -62,6 +62,8 @@ module.exports = function (app) {
                     res.json({
                         "cine": {
                             nombre: cine.nombre,
+                            _idCiudad: ciudad._id,
+                            nombreCiudad: ciudad.nombre,
                             urlCartelera: null,
                             direccion: cine.direccion,
                             codigoPostal: cine.codigoPostal,
