@@ -65,6 +65,8 @@ module.exports = function (app) {
                             urlCartelera: null,
                             direccion: cine.direccion,
                             codigoPostal: cine.codigoPostal,
+                            coordLatitud: cine.coordLatitud,
+                            coordLongitud: cine.coordLongitud,
                             telefono: cine.telefono,
                             sesiones: cine.sesiones,
                             actualizado: null
@@ -81,33 +83,9 @@ module.exports = function (app) {
                             return;
                         }
 
-                        //Saco el cuerpo
-                        //var $ = cheerio.load(body);
-
                         //Saco las sesiones
                         var sesionesCine = sessionExtractor.extract(body, cine.tipo),
                             promises = [];
-
-                        /******************************************/
-                        /*$('div.info-line').each(function () {
-                         var titulo = $(this).find('h5').text();
-                         var horarios = [], horarios3d = [];
-
-                         // Genero el tag de la peli
-                         var tagData = utils.getTagPeli(titulo);
-
-                         $(this).find('p.subtitle a').each(function () {
-                         if (tagData.es3d) {
-                         horarios3d.push($(this).text());
-                         } else {
-                         horarios.push($(this).text());
-                         }
-                         });
-
-                         // Añado el promise a la lista
-                         promises.push(prometeo.checkIfMovieExists(tagData.tag, titulo, horarios, horarios3d));
-                         });*/
-                        /******************************************/
 
                         sesionesCine.forEach(function (ss) {
                             // Añado el promise a la lista
@@ -148,6 +126,8 @@ module.exports = function (app) {
                                         urlCartelera: null,
                                         direccion: cine.direccion,
                                         codigoPostal: cine.codigoPostal,
+                                        coordLatitud: cine.coordLatitud,
+                                        coordLongitud: cine.coordLongitud,
                                         telefono: cine.telefono,
                                         sesiones: sesionesJSON,
                                         actualizado: null

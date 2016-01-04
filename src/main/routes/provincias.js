@@ -40,7 +40,8 @@ module.exports = function (app) {
         // Saco la ciudad esta que busco
         models.Provincia
             .findOne({"ciudades._id": idCiudad})
-            .select('-ciudades.cines.urlCartelera  -ciudades.cines.actualizado')
+            .select('ciudades ciudades.nombre ciudades._id ciudades.cines ciudades.cines._id ciudades.cines.nombre')
+            //.select('-ciudades.cines.urlCartelera  -ciudades.cines.actualizado -ciudades.cines.sesiones ')
             //.populate('ciudades.cines.sesiones._idPelicula')
             .exec(function (error, provincia) {
                 if (error || !provincia) {
@@ -48,6 +49,8 @@ module.exports = function (app) {
                     utils.error(res, 400, 'errProvinciasCiudad');
                     return;
                 }
+
+                console.log(provincia);
 
                 //Saco la ciudad que busco
                 var ciudad = null;
@@ -65,7 +68,6 @@ module.exports = function (app) {
 
                 //Añadir a la respuesta el idCiudad y nombreciudad
                 var cines = ciudad.cines;
-
                 cines.forEach(function (cine) {
                     cine._idCiudad = ciudad._id;
                     cine.nombreCiudad = ciudad.nombre;

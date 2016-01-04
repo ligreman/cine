@@ -35,6 +35,8 @@ var cineSchema = new Schema({
     tipo: String,
     direccion: String,
     codigoPostal: String,
+    coordLatitud: Number,
+    coordLongitud: Number,
     telefono: String,
     sesiones: [sesionSchema],
     actualizado: Number //cuando actualicé las sesiones de este cine

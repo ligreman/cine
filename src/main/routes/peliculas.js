@@ -12,12 +12,12 @@ module.exports = function (app) {
      * Obtiene la lista peliculas
      */
     peliculaRouter.get('/peliculas', function (req, res, next) {
-        var returnPhotos = utils.checkKey(req.get(config.CONSTANTS.KEY_HEADER));
+        //var returnPhotos = utils.checkKey(req.get(config.CONSTANTS.KEY_HEADER));
 
         models.Pelicula
             .find({})
             //.select('-ciudades.cines.urlCartelera -ciudades.cines.actualizado')
-            //.select('nombre sortfield ciudades._id ciudades.nombre')
+            .select('titulo')
             //.populate('ciudades.cines.sesiones._idPelicula')
             .exec(function (error, peliculas) {
                 if (error) {
@@ -27,11 +27,11 @@ module.exports = function (app) {
                 }
 
                 //Miro a ver si tengo que devolver la imagen real o no
-                if (!returnPhotos) {
-                    peliculas.forEach(function (pelicula) {
-                        pelicula.imagen = config.CONSTANTS.NO_MOVIE_DEFAULT_IMAGE;
-                    });
-                }
+                /*if (!returnPhotos) {
+                 peliculas.forEach(function (pelicula) {
+                 pelicula.imagen = config.CONSTANTS.NO_MOVIE_DEFAULT_IMAGE;
+                 });
+                 }*/
 
                 res.json({
                     "peliculas": peliculas,
