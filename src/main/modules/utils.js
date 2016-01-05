@@ -100,10 +100,36 @@ var checkKey = function (key) {
     return key !== undefined && key === config.CONSTANTS.KEY_PASSWORD;
 };
 
+var capitalize = function (string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+};
+
+var titleCase = function (str) {
+    var smallWords = /^(a|e|y|o|u|de|en|la|le|lo|las|les|los|vs?\.?|via)$/i;
+    str = str.toLowerCase();
+
+    return str.replace(/[A-Za-z0-9\u00C0-\u00FF]+[^\s-]*/g, function (match, index, title) {
+        if (index > 0 && index + match.length !== title.length &&
+            match.search(smallWords) > -1 && title.charAt(index - 2) !== ":" &&
+            (title.charAt(index + match.length) !== '-' || title.charAt(index - 1) === '-') &&
+            title.charAt(index - 1).search(/[^\s-]/) < 0) {
+            return match.toLowerCase();
+        }
+
+        if (match.substr(1).search(/[A-Z]|\../) > -1) {
+            return match;
+        }
+
+        return match.charAt(0).toUpperCase() + match.substr(1);
+    });
+};
+
 //Exporto las funciones de la librería utils para que puedan accederse desde fuera
 module.exports = {
     error: error,
     isUpdated: isUpdated,
     getTagPeli: getTagPeli,
-    checkKey: checkKey
+    checkKey: checkKey,
+    capitalize: capitalize,
+    titleCase: titleCase
 };

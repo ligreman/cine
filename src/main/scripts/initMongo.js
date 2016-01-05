@@ -47,8 +47,8 @@ var provincias = [
                     {
                         _id: '00a3c17b6a10bdc756360307ff188be2',
                         nombre: 'Odeón Multicines',
-                        urlCartelera: 'http://odeonmulticines.com/leon/cartelera/',
-                        urlCompraOnline: '',
+                        urlCartelera: 'http://odeonmulticines.com/leon/',
+                        urlCompraOnline: 'http://www.compraentradas.com/Cine/060/odeon-multicines-leon',
                         tipo: 'odeon',
                         direccion: 'Centro Comercial Espacio León. Avda. del País Leonés, s/n',
                         codigoPostal: '24010',

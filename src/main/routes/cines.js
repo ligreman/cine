@@ -85,7 +85,7 @@ module.exports = function (app) {
                             utils.error(res, 500, 'errUpdateCine');
                             return;
                         }
-
+                        console.log("Miro " + cine.urlCartelera);
                         //Saco las sesiones
                         var sesionesCine = sessionExtractor.extract(body, cine.tipo),
                             promises = [];
