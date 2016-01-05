@@ -1,0 +1,3 @@
+#!/bin/bash
+
+/opt/rh/nodejs010/root/usr/bin/node $OPENSHIFT_REPO_DIR/src/main/scrips/initMongo.js
