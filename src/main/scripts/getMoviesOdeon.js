@@ -294,6 +294,7 @@ var downloadImageAsBase64 = function (imagen, callback) {
 function cleanArray(arr) {
     var arraynuevo = [];
     arr.forEach(function (uno) {
+        uno = uno.trim();
         arraynuevo.push(utils.titleCase(uno));
     });
     return arraynuevo;

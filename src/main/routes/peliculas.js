@@ -19,6 +19,7 @@ module.exports = function (app) {
             //.select('-ciudades.cines.urlCartelera -ciudades.cines.actualizado')
             .select('titulo')
             //.populate('ciudades.cines.sesiones._idPelicula')
+            .sort({titulo: 'asc'})
             .exec(function (error, peliculas) {
                 if (error) {
                     console.error(error);
