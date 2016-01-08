@@ -1,0 +1,228 @@
+swagger: '2.0'
+info:
+  title: Uber API
+  description: Move your app forward with the Uber API
+  version: 1.0.0
+host: api.uber.com
+schemes:
+  - https
+basePath: /api
+produces:
+  - application/json
+paths:
+  /provincias:
+    get:
+      summary: Obtiene la lista de provincias y sus ciudades.
+      tags:
+        - Provincias
+      responses:
+        '200':
+          description: Array de provincias
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Provincias'
+
+  /provincias/ciudad/:idCiudad:
+    get:
+      summary: Obtiene la lista de cines de una ciudad.
+      parameters:
+        - name: idCiudad
+          in: query
+          description: ID de la ciudad a consultar.
+          required: true
+          type: string
+      tags:
+        - Provincias
+      responses:
+        '200':
+          description: Array de cines
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Cines'
+
+  /cines/:idCine:
+    get:
+      summary: Obtiene el detalle de un cine y sus sesiones.
+      parameters:
+        - name: idCine
+          in: query
+          description: ID del cine a consultar.
+          required: true
+          type: string
+      tags:
+        - Cines
+      responses:
+        '200':
+          description: Objeto con la información del cine
+          schema:
+            type: object
+            $ref: '#/definitions/Cine'
+
+  /peliculas:
+    get:
+      summary: Obtiene el listado de películas.
+      tags:
+        - Peliculas
+      responses:
+        '200':
+          description: Array con las películas, su id y título únicamente
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                _id:
+                  type: string
+                  description: ID de la película
+                titulo:
+                  type: string
+                  description: Título de la película
+
+  /peliculas/:idPelicula:
+    get:
+      summary: Obtiene el detalle de una película.
+      parameters:
+        - name: idPelicula
+          in: query
+          description: ID de la película a consultar.
+          required: true
+          type: string
+      tags:
+        - Peliculas
+      responses:
+        '200':
+          description: Objeto con la información de la película
+          schema:
+            type: object
+            properties:
+              pelicula:
+                type: object
+                $ref: '#/definitions/Pelicula'
+
+
+definitions:
+  Provincias:
+    type: object
+    properties:
+      provincias:
+        type: array
+        items:
+          type: object
+          properties:
+            _id:
+              type: string
+            nombre:
+              type: string
+            sortfield:
+              type: string
+            ciudades:
+              type: array
+              items:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                  nombre:
+                    type: string
+      error:
+        type: string
+        description: Código de error si es que se da.
+
+  Cines:
+    type: object
+    properties:
+      cines:
+        type: array
+        items:
+          type: object
+          properties:
+            _id:
+              type: string
+              description: ID del cine
+            nombre:
+              type: string
+              description: Nombre del cine
+            _idCiudad:
+              type: string
+              description: ID de la ciudad a la que pertenece el cine
+            nombreCiudad:
+              type: string
+              description: Nombre de la ciudad a la que pertenece el cine
+      error:
+        type: string
+        description: Código de error si es que se da.
+
+  Cine:
+    type: object
+    properties:
+      cine:
+        type: object
+        properties:
+          nombre:
+            type: string
+          _idCiudad:
+            type: string
+          nombreCiudad:
+            type: string
+          urlCompraOnline:
+            type: string
+          direccion:
+            type: string
+          codigoPostal:
+            type: string
+          telefono:
+            type: string
+          coordLatitud:
+            type: number
+          coordLongitud:
+            type: number
+          sesiones:
+            type: array
+            items:
+              type: object
+              properties:
+                pelicula:
+                  type: object
+                  $ref: '#/definitions/Pelicula'
+                horarios:
+                  type: array
+                  items:
+                    type: string
+                horarios3D:
+                  type: array
+                  items:
+                    type: string
+
+  Pelicula:
+    type: object
+    properties:
+      titulo:
+        type: string
+      estreno:
+        type: string
+      anno:
+        type: number
+      duracion:
+        type: number
+      pais:
+        type: array
+        items:
+          type: string
+      sinopsis:
+        type: string
+      genero:
+        type: array
+        items:
+          type: string
+      director:
+        type: array
+        items:
+          type: string
+      reparto:
+        type: array
+        items:
+          type: string
+      imagen:
+        type: string

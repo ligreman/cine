@@ -105,6 +105,7 @@ request(urlVanGogh, function (err, resp, body) {
 
             // Tengo que recoger las pelis de meFaltan
             if (meFaltan.length === 0) {
+                console.log("Tengo todas");
                 mongoose.disconnect();
                 process.exit();
             } else {
@@ -156,6 +157,7 @@ eventEmitter.on('#getpelis', function (data) {
                         console.error("Error al guardar en mongo las pelis:" + err);
                     }
 
+                    console.log("Fin");
                     mongoose.disconnect();
                     process.exit();
                 });

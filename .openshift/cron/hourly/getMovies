@@ -1,2 +1,2 @@
-node $OPENSHIFT_REPO_DIR/src/main/scripts/getMoviesOdeon.js
 node $OPENSHIFT_REPO_DIR/src/main/scripts/getMoviesVanGogh.js
+node $OPENSHIFT_REPO_DIR/src/main/scripts/getMoviesOdeon.js
