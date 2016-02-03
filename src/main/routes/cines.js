@@ -59,6 +59,18 @@ module.exports = function (app) {
                 // Compruebo si el cine está actualizado
                 if (utils.isUpdated(cine.actualizado)) {
                     console.log("Ta updated");
+
+                    // Miro a ver si censuro imagenes
+                    var sesionesJSON = [];
+                    if (!returnPhotos) {
+                        cine.sesiones.forEach(function (sesion) {
+                            sesion.pelicula.imagen = config.CONSTANTS.NO_MOVIE_DEFAULT_IMAGE;
+                            sesionesJSON.push(sesion);
+                        });
+                    } else {
+                        sesionesJSON = cine.sesiones;
+                    }
+
                     res.json({
                         "cine": {
                             nombre: cine.nombre,
@@ -71,7 +83,7 @@ module.exports = function (app) {
                             coordLatitud: cine.coordLatitud,
                             coordLongitud: cine.coordLongitud,
                             telefono: cine.telefono,
-                            sesiones: cine.sesiones,
+                            sesiones: sesionesJSON,
                             actualizado: null
                         },
                         "error": ""
