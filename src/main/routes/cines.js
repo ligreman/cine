@@ -62,6 +62,7 @@ module.exports = function (app) {
 
                     // Miro a ver si censuro imagenes
                     var sesionesJSON = [];
+
                     if (!returnPhotos) {
                         cine.sesiones.forEach(function (sesion) {
                             sesion.pelicula.imagen = config.CONSTANTS.NO_MOVIE_DEFAULT_IMAGE;
